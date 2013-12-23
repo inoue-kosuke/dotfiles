@@ -1,13 +1,12 @@
 "viとの互換性を無効にする(INSERT中にカーソルキーが有効になる)
 set nocompatible
-
+  
 " ファイル形式の検出を無効にする
 filetype off
 filetype indent off
 filetype plugin off
 
-" Vundle を初期化して
-" Vundle 自身も Vundle で管理
+" vundle を初期化してVUNDLE 自身も VuNDLE で管理
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -16,6 +15,7 @@ Bundle 'jnurmine/Zenburn'
 Bundle 'tpope/vim-rails'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+
 
 "===================================================================
 " 基本設定 
@@ -62,7 +62,7 @@ set smartcase
 set nowrapscan
 
 "コマンド、検索パターンを100個まで履歴に残す
-set history=1000
+set history=10000
 
 
 "===================================================================
@@ -75,17 +75,15 @@ set whichwrap=b,s,h,l,<,>,[,]
 " 削除できるようにする。
 set backspace=indent,eol,start
 
-" カーソルを行頭，行末で止まらないようにする
-set whichwrap=b,s,h,l,<,>,[,]
-
-" 新しい行のインデントを現在行と同じにする
-set autoindent
-
 " 移動コマンドを使ったとき、行頭に移動しない
 set nostartofline
 
 " 閉じ括弧が入力されたとき、対応する括弧を表示する
 set showmatch
+
+" 対応括弧の表示秒数を2秒に
+set matchtime=2
+
 
 
 "===================================================================
@@ -94,16 +92,30 @@ set showmatch
 " タブの代わりに空白文字を挿入する
 set expandtab
 
-" ファイル内の <Tab> が対応する空白の数
+" 画面上で <Tab> が対応する空白の数
 set tabstop=2
 
+" autoindentや矩形選択時のタブ挿入幅
+set shiftwidth=2
+
+" <Tab>で入力される空白の数
+set softtabstop=2
+
+" 行頭の余白内で<Tab>を押すと'shiftwidth'の数だけインデントする
+set smarttab
+
+" 新しい行のインデントを現在行と同じにする
+set autoindent
+
+"□や○の文字があってもカーソル位置がずれないようにする
+set ambiwidth=double
 
 
 "===================================================================
 " 画面表示 
 "===================================================================
-"タブ文字、行末など不可視文字を表示する
-set list
+" タブ文字、行末など不可視文字を表示する
+" set list
 
 " 画面最下行にルーラーを表示する
 set ruler
@@ -111,12 +123,11 @@ set ruler
 " ステータスラインを常に表示する
 set laststatus=2
 
-" 行番号を表示
+" 右下に行番号を表示
 set number
 
 " タイプ途中のコマンドを画面最下行に表示
 set showcmd
-
 
 "===================================================================
 "" Mapping <jump-tag>
@@ -128,10 +139,11 @@ set showcmd
 " cmap/cnoremap         -            -              @                  -  
 " vmap/vnoremap         -            -              -                  @
 " map!/noremap!         -            @              @                  -
-"-------------------------------------------------------------------------------
+"-------------------------------------------------------------------
 
-inoremap <c-j> <esc>
-vnoremap <c-j> <esc>
+" 素早くjjと入力した場合はESCと見なす
+inoremap jj <esc>
+vnoremap jj <esc>
 
 " インサートモードでも移動
 inoremap <c-d> <delete>
@@ -140,9 +152,11 @@ inoremap <c-k> <up>
 inoremap <c-h> <left>
 inoremap <c-l> <right>
 
-" j, k による移動を折り返されたテキストでも自然に振る舞うように変更
+" j, k による移動を折り返されたテキストでも見た目通りに振る舞うように
 nnoremap j gj
 nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 " vを二回で行末まで選択
 vnoremap v $h
