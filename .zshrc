@@ -1,5 +1,8 @@
 TERM=linux
 
+# JavaScriptCoreによるterminalでのJS実行環境構築
+alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 

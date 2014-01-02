@@ -33,14 +33,20 @@ filetype indent plugin on
 " コマンドライン補完を便利に
 set wildmenu
 
-"編集中でも他のファイルを開けるようにする
+" スワップファイルを作成しない
+:set noswapfile
+
+" 編集中でも他のファイルを開けるようにする
 set hidden
 
-"カーソルの上または下に表示する最小限の行数
+" カーソルの上または下に表示する最小限の行数
 set scrolloff=5
 
-"OSのクリップボードを使用する
+" OSのクリップボードを使用する
 set clipboard=unnamed
+
+" 0始まりの数なども全ての数を十進数として扱う。<C-a><C-x>対応
+set nrformats=
 
 
 "===================================================================
@@ -130,7 +136,7 @@ set number
 set showcmd
 
 "===================================================================
-"" Mapping <jump-tag>
+" Mapping <jump-tag>
 "===================================================================
 " コマンド       ノーマルモード 挿入モード コマンドラインモード ビジュアルモード
 " map/noremap           @            -              -                  @ 
@@ -141,9 +147,9 @@ set showcmd
 " map!/noremap!         -            @              @                  -
 "-------------------------------------------------------------------
 
-" 素早くjjと入力した場合はESCと見なす
-inoremap jj <esc>
-vnoremap jj <esc>
+" 素早くjkと入力した場合はESCと見なす
+inoremap jk <esc>
+vnoremap jk <esc>
 
 " インサートモードでも移動
 inoremap <c-d> <delete>
@@ -158,5 +164,9 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+" 矢印キーを使わずにコマンドモード履歴のフィルタリングが出来るように
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+
 " vを二回で行末まで選択
-vnoremap v $h
+" vnoremap v $h
